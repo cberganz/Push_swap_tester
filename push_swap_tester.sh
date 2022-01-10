@@ -1,6 +1,82 @@
 #!/bin/bash
 
-#testing3() {
+testingerrors() {
+	error=0
+	echo
+	echo "/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ "
+	echo
+	echo "	Test Error cases"
+	echo
+	ps_ret=`./push_swap 1 "" 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		echo "	Your push_swap does not return Error with args : 1 \"\" 2 "
+		error=1
+	fi
+	ps_ret=`./push_swap 2 1 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		echo "	Your push_swap does not return Error with args : 2 1 2 "
+		error=1
+	fi
+	ps_ret=`./push_swap 1 2147483648 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		echo "	Your push_swap does not return Error with args : 1 214683648 2 "
+		error=1
+	fi
+	ps_ret=`./push_swap 1 -2147483649 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		echo "	Your push_swap does not return Error with args : 1 -2147483648 2 "
+		error=1
+	fi
+	ps_ret=`./push_swap 1 999999999999999999 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		echo "	Your push_swap does not return Error with args : 1 999999999999999999999 2 "
+		error=1
+	fi
+	ps_ret=`./push_swap 1 " 12" 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		echo "	Your push_swap does not return Error with args : 1 \" 12\" 2 "
+		error=1
+	fi
+	ps_ret=`./push_swap 1 "12ab" 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		echo "	Your push_swap does not return Error with args : 1 \"12ab\" 2 "
+		error=1
+	fi
+	ps_ret=`./push_swap 1 "12 " 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		echo "	Your push_swap does not return Error with args : 1 \"12 \" 2 "
+		error=1
+	fi
+	ps_ret=`./push_swap 1 "ab" 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		echo "	Your push_swap does not return Error with args : 1 \"ab\" 2 "
+		error=1
+	fi
+	ps_ret=`./push_swap 1 " ab" 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		echo "	Your push_swap does not return Error with args : 1 \" ab\" 2 "
+		error=1
+	fi
+	if [ $error == 0 ]
+	then
+		echo "	Your push_swap perfectly handle any Error case"
+	fi
+	echo
+	echo "/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ "
+	echo
+}
+
+testing3() {
 	max_ret_len=0
 	nb_errors=0
 
@@ -75,9 +151,9 @@
 	echo
 	echo "/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ "
 	echo
-#}
+}
 
-#testing5() {
+testing5() {
 	max_ret_len=0
 	nb_errors=0
 
@@ -1292,12 +1368,12 @@
 	echo
 	echo "/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ "
 	echo
-#}
+}
 
-#testing100() {
+testing100() {
 max=0
 min=100000
-test_nb=1000
+test_nb=50000
 value_nb=100
 min_val=1
 max_val=50000
@@ -1337,12 +1413,12 @@ nb_errors=0
 	echo
 	echo "/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ "
 	echo
-#}
+}
 
-#testing500() {
+testing500() {
 max=0
 min=100000
-test_nb=10
+test_nb=5000
 value_nb=500
 min_val=1
 max_val=50000
@@ -1382,4 +1458,14 @@ nb_errors=0
 	echo
 	echo "/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ "
 	echo
-#}
+}
+
+main() {
+	testingerrors
+	testing3
+	testing5
+	testing100
+	testing500
+}
+
+main
