@@ -10,8 +10,8 @@ red='\033[0;31m'
 yell='\033[0;33m'
 reset='\033[0m'
 
-checker_path=./checker_linux
-push_swap_path=./push_swap
+checker_path=../checker_linux
+push_swap_path=../push_swap
 nb_tests_to_run=1
 nb_of_values=100
 
