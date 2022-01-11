@@ -1433,16 +1433,15 @@ launch_all() {
 	testing5
 	nb_of_values=100
 	nb_tests_to_run=1000
-	#	tester
+	tester
 	nb_of_values=500
 	nb_tests_to_run=100
-	#	tester
+	tester
 	tester_range
 	echo
 }
 
-if [ $# -gt 4 ]; then
-	printf "${red}\nToo many args ! Help menu below : ${reset}\n" >&2
+print_help() {
 	printf "\n${Blue}>>> Help menu <<<${reset}\n"
 	printf "${white}run $>bash push_swap_tester.sh [optional arg 1] [optional arg 2] :${reset}\n"
 	printf "${white}[optional arg 1]${reset} The number of values in stacks (-1 for Error checker).\n"
@@ -1450,16 +1449,15 @@ if [ $# -gt 4 ]; then
 	printf "${white}[No args]${reset} Every basical test is launched\n"
 	printf "${white}[Checker path]${reset} The default checker path is ./checker_linux. You can change the checker path by running :\n$>bash push_swap_tester [optional checker path] [optional arg 1] [optional arg 2]\n"
 	printf "${white}[Sequence mode]${reset} You run a sequence of numbers of args of your choice by running :\n$>bash push_swap_tester -seq [optional checker path] [mandatory sequence begin] [mandatory sequence end]\n\n"
+}
+
+if [ $# -gt 4 ]; then
+	printf "${red}\nToo many args ! Help menu below : ${reset}\n" >&2
+	print_help
 	exit
 fi
 if [[ $1 = "--help" ]]; then
-	printf "\n${Blue}>>> Help menu <<<${reset}\n"
-	printf "${white}run $>bash push_swap_tester.sh [optional arg 1] [optional arg 2] :${reset}\n"
-	printf "${white}[optional arg 1]${reset} The number of values in stacks (-1 for Error checker).\n"
-	printf "${white}[optional arg 2]${reset} The number of tests to run.\n"
-	printf "${white}[No args]${reset} Every basical test is launched\n"
-	printf "${white}[Checker path]${reset} The default checker path is ./checker_linux. You can change the checker path by running :\n$>bash push_swap_tester [optional checker path] [optional arg 1] [optional arg 2]\n"
-	printf "${white}[Sequence mode]${reset} You run a sequence of numbers of args of your choice by running :\n$>bash push_swap_tester -seq [optional checker path] [mandatory sequence begin] [mandatory sequence end]\n\n"
+	print_help
 	exit
 fi
 if ! [[ $2 =~ $re ]]; then
@@ -1552,13 +1550,7 @@ if ! [[ $1 =~ $re ]]; then
 	fi
 	if [[ $1 =~ $re ]]; then
 		printf "${red}\nToo many args ! You can use : ${reset}\n" >&2
-		printf "\n${Blue}>>> Help menu <<<${reset}\n"
-		printf "${white}run $>bash push_swap_tester.sh [optional arg 1] [optional arg 2] :${reset}\n"
-		printf "${white}[optional arg 1]${reset} The number of values in stacks (-1 for Error checker).\n"
-		printf "${white}[optional arg 2]${reset} The number of tests to run.\n"
-		printf "${white}[No args]${reset} Every basical test is launched\n"
-		printf "${white}[Checker path]${reset} The default checker path is ./checker_linux. You can change the checker path by running :\n$>bash push_swap_tester [optional checker path] [optional arg 1] [optional arg 2]\n"
-		printf "${white}[Sequence mode]${reset} You run a sequence of numbers of args of your choice by running :\n$>bash push_swap_tester -seq [optional checker path] [mandatory sequence begin] [mandatory sequence end]\n\n"
+		print_help
 		exit
 	fi
 fi
