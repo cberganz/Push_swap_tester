@@ -53,3 +53,12 @@ Your can run a sequencial test with the range of your choice :
 bash push_swap_tester.sh -seq [optional - checker path] [mandatory - sequence begin] [mandatory - sequence end]
 ```
 <img src="screenshot3.png" width="75%">
+
+
+
+### Memory check mode
+Use valgrind to run a memory check with the stack size specified :
+```bash
+bash push_swap_tester.sh --memory [mandatory - stack size]
+```
+<img src="screenshot4.png" width="75%">
