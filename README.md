@@ -37,7 +37,7 @@ bash push_swap_tester.sh ../checker
 
 
 
-### Free mode
+### Specify your stack size and number of tests
 You can run a test with the settings of your choice :
 ```bash
 bash push_swap_tester.sh [optional - checker path] [optional - stack size] [optional - Number of tests]
@@ -57,7 +57,7 @@ bash push_swap_tester.sh -seq [optional - checker path] [mandatory - sequence be
 
 
 ### Memory check mode
-Use valgrind to run a memory check with the stack size specified :
+Use valgrind to run a memory check with the stack size specified (works only on linux) :
 ```bash
 bash push_swap_tester.sh --memory [mandatory - stack size]
 ```
