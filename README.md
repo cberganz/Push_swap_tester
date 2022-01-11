@@ -18,19 +18,33 @@ bash push_swap_tester.sh --help
 ```
 
 
+
 ### Use another checker / change checker path
 By default the script uses the linux checker with the path ../checker_linux. You can change the default checker path to the MacOS Checker or to your own checker with :
 ```bash
 bash push_swap_tester.sh [optional - checker path]
 ```
 
+If you use the MacOS checker
+```bash
+bash push_swap_tester.sh ../checker_Mac
+```
+
+If you use your personal checker named "checker"
+```bash
+bash push_swap_tester.sh ../checker
+```
+
+
 
 ### Free mode
 You can run a test with the settings of your choice :
 ```bash
-bash push_swap_tester.sh [optional - checker path] [optional - Number of args to sort] [optional - Number of tests to run]
+bash push_swap_tester.sh [optional - checker path] [optional - stack size] [optional - Number of tests]
 ```
+(Default value for number of tests is 1).
 <img src="screenshot2.png" width="75%">
+
 
 
 ### Sequence mode
