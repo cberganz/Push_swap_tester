@@ -1,4 +1,5 @@
 #!/bin/bash
+date > /dev/null
 
 Blue='\033[0;34m'
 Purple='\033[0;35m'
@@ -1461,6 +1462,29 @@ launch_all() {
 	echo
 }
 
+mem_checker() {
+	max=0
+	min=100000
+	average=0
+	nb_errors=0
+	printf "\n${Purple}Checking memory with ${Cyan}$nb_of_values ${Purple}numbers : ${reset}\n"
+	arg=`shuf -i 1-100000 -n $nb_of_values`
+	arg=`echo $arg | sed 's/\n/ /g'`
+	valgrind $push_swap_path $arg | wc -l
+	current=`$push_swap_path $arg | wc -l`
+	ret_checker=`$push_swap_path $arg | $checker_path $arg`
+	if [ "$ret_checker" != "OK" ]
+	then
+		nb_errors=$(($nb_errors+1))
+	fi
+	printf "${Purple}Number of operations : ${Cyan}$current${reset}\n"
+	if [ $nb_errors = 0 ]; then
+		printf "${Purple}Checker return : ✅\n\n"
+	else
+		printf "${Purple}Checker return : ❌\n\n"
+	fi
+}
+
 print_help() {
 	printf "\n${Blue}>>> Help menu <<<${reset}\n"
 	printf "${white}run $>bash push_swap_tester.sh [optional arg 1] [optional arg 2] :${reset}\n"
@@ -1478,6 +1502,11 @@ if [ $# -gt 4 ]; then
 fi
 if [[ $1 = "--help" ]]; then
 	print_help
+	exit
+fi
+if [[ $1 = "--memory" ]]; then
+	nb_of_values=$2
+	mem_checker
 	exit
 fi
 if ! [[ $2 =~ $re ]]; then
