@@ -1647,3 +1647,4 @@ if ! [[ $1 =~ $re ]]; then
 		exit
 	fi
 fi
+printf "${red}Error : ${white}Something went wrong with your arguments. Run --help for help menu.${reset}" >&2; exit
