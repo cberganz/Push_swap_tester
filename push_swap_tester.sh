@@ -1385,13 +1385,11 @@ testing5() {
 tester() {
 	max=0
 	min=100000
-	min_val=1
-	max_val=50000
 	average=0
 	nb_errors=0
 	for i in `seq 1 $nb_tests_to_run`
 	do
-		arg=`shuf -i $min_val-$max_val -n $nb_of_values`
+		arg=`shuf -i 1-100000 -n $nb_of_values`
 		arg=`echo $arg | sed 's/\n/ /g'`
 		current=`$push_swap_path $arg | wc -l`
 		ret_checker=`$push_swap_path $arg | $checker_path $arg`
@@ -1425,14 +1423,12 @@ tester() {
 tester_range() {
 	max=0
 	min=100000
-	min_val=1
-	max_val=50000
 	nb_errors=0
 	printf "\n${Purple}Testing all sizes of stack between ${Cyan}$seq_begin${Purple} and ${Cyan}$seq_end${Purple} : ${reset}\n"
 	printf "${Purple}Tests : ${reset}"
 	for i in `seq $seq_begin $seq_end`
 	do
-		arg=`shuf -i $min_val-$max_val -n $i`
+		arg=`shuf -i 1-100000 -n $i`
 		arg=`echo $arg | sed 's/\n/ /g'`
 		current=`$push_swap_path $arg | wc -l`
 		ret_checker=`$push_swap_path $arg | $checker_path $arg`
@@ -1445,9 +1441,9 @@ tester_range() {
 		fi
 	done
 	if [ $nb_errors = 0 ]; then
-		printf "${Purple}Number of errors : ${green}$nb_errors${reset}\n"
+		printf "\n${Purple}Number of errors : ${green}$nb_errors${reset}\n"
 	else
-		printf "${Purple}Number of errors : ${red}$nb_errors${reset}\n"
+		printf "\n${Purple}Number of errors : ${red}$nb_errors${reset}\n"
 	fi
 }
 
