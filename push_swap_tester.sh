@@ -127,6 +127,8 @@ testing3() {
 
 	ret_len=`$push_swap_path 1 2 3 | wc -l`
 	ret_checker=`$push_swap_path 1 2 3 | $checker_path 1 2 3`
+	printf "\n${Purple}Test ${Cyan}3 ${Purple}numbers : ${reset}"
+	printf "${Cyan}6 ${Purple}tests with all permutations.${reset}\n"
 	if [ $ret_len -gt $max_ret_len ]
 	then
 		max_ret_len="$ret_len"
@@ -185,8 +187,6 @@ testing3() {
 	then
 		nb_errors=$(($nb_errors+1))
 	fi
-	printf "\n${Purple}Test ${Cyan}3 ${Purple}numbers : ${reset}"
-	printf "${Cyan}6 ${Purple}tests with all permutations.${reset}\n"
 	if [ $max_ret_len -gt 3 ]; then
 		printf "${Purple}Max : ${red}$max_ret_len${reset}\n"
 	else
@@ -205,6 +205,8 @@ testing5() {
 
 	ret_len=`$push_swap_path 1 2 3 4 5 | wc -l`
 	ret_checker=`$push_swap_path 1 2 3 4 5 | $checker_path 1 2 3 4 5`
+	printf "\n${Purple}Test ${Cyan}5 ${Purple}numbers : ${reset}"
+	printf "${Cyan}120 ${Purple}tests with all permutations.${reset}\n"
 	if [ $ret_len -gt $max_ret_len ]
 	then
 		max_ret_len="$ret_len"
@@ -1403,8 +1405,6 @@ testing5() {
 	then
 		nb_errors=$(($nb_errors+1))
 	fi
-	printf "\n${Purple}Test ${Cyan}5 ${Purple}numbers : ${reset}"
-	printf "${Cyan}120 ${Purple}tests with all permutations.${reset}\n"
 	if [ $max_ret_len -gt 12 ]; then
 		printf "${Purple}Max : ${red}$max_ret_len${reset}\n"
 	else
@@ -1422,6 +1422,8 @@ tester() {
 	min=100000
 	average=0
 	nb_errors=0
+	printf "\n${Purple}Testing ${Cyan}$nb_of_values ${Purple}numbers : ${reset}"
+	printf "${Cyan}$nb_tests_to_run ${Purple}tests.${reset}\n"
 	for i in `seq 1 $nb_tests_to_run`
 	do
 		arg=`shuf -i 1-100000 -n $nb_of_values`
@@ -1446,8 +1448,6 @@ tester() {
 		fi
 	done
 	average=$(($average/$i))
-	printf "\n${Purple}Testing ${Cyan}$nb_of_values ${Purple}numbers : ${reset}"
-	printf "${Cyan}$nb_tests_to_run ${Purple}tests.${reset}\n"
 	printf "${Purple}Max : ${Cyan}$max${reset}\n"
 	printf "${Purple}Min : ${Cyan}$min${reset}\n"
 	printf "${Purple}average : ${Cyan}$average${reset}\n"
