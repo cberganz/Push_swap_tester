@@ -40,7 +40,7 @@ bash push_swap_tester.sh ../checker
 ### Specify your stack size and number of tests
 You can run a test with the settings of your choice :
 ```bash
-bash push_swap_tester.sh [optional - checker_path] [optional - stack_size] [optional - number_of_tests]
+bash push_swap_tester.sh [optional - checker_path] [optional - stack_size] [optional - number_of_tests - default=1]
 ```
 (Default value for number of tests is 1).
 <img src="screenshot2.png" width="75%">
