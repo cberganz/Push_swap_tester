@@ -22,7 +22,7 @@ bash push_swap_tester.sh --help
 ### Use another checker / change checker path
 By default the script uses the linux checker with the path ../checker_linux. You can change the default checker path to the MacOS Checker or to your own checker with :
 ```bash
-bash push_swap_tester.sh [optional - checker path]
+bash push_swap_tester.sh [optional - checker_path]
 ```
 
 If you use the MacOS checker
@@ -40,17 +40,17 @@ bash push_swap_tester.sh ../checker
 ### Specify your stack size and number of tests
 You can run a test with the settings of your choice :
 ```bash
-bash push_swap_tester.sh [optional - checker path] [optional - stack size] [optional - Number of tests]
+bash push_swap_tester.sh [optional - checker_path] [optional - stack_size] [optional - number_of_tests]
 ```
 (Default value for number of tests is 1).
 <img src="screenshot2.png" width="75%">
 
 
 
-### Sequence mode
-Your can run a sequencial test with the range of your choice :
+### Range mode
+Your can run a range test with the range of your choice :
 ```bash
-bash push_swap_tester.sh -seq [optional - checker path] [mandatory - sequence begin] [mandatory - sequence end]
+bash push_swap_tester.sh --range [optional - checker_path] [mandatory - range_begin] [mandatory - range_end]
 ```
 <img src="screenshot3.png" width="75%">
 
@@ -59,6 +59,6 @@ bash push_swap_tester.sh -seq [optional - checker path] [mandatory - sequence be
 ### Memory check mode
 Use valgrind to run a memory check with the stack size specified (works only on linux) :
 ```bash
-bash push_swap_tester.sh --memory [mandatory - stack size]
+bash push_swap_tester.sh --memory [mandatory - stack_size]
 ```
 <img src="screenshot4.png" width="75%">

@@ -26,64 +26,98 @@ testingerrors() {
 	then
 		printf "${red}Your push_swap does not return Error with arg : \"\" ${reset}\n"
 		error=1
+	else
+		printf "${green}Your push_swap return Error with arg type : \"\". ${reset}\n"
 	fi
 	ps_ret=`$push_swap_path 2 1 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
 		printf "${red}Your push_swap does not return Error with duplicates. ${reset}\n"
 		error=1
+	else
+		printf "${green}Your push_swap return Error with duplicates. ${reset}\n"
 	fi
 	ps_ret=`$push_swap_path 1 2147483648 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with arg : 214683648 ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg over INT_MAX. ${reset}\n"
 		error=1
+	else
+		printf "${green}Your push_swap return Error with arg over INT_MAX. ${reset}\n"
+	fi
+	ps_ret=`$push_swap_path 1 9999999999999999999999 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		printf "${red}Your push_swap does not return Error with arg over INT_MAX. ${reset}\n"
+		error=1
+	else
+		printf "${green}Your push_swap return Error with arg over INT_MAX. ${reset}\n"
 	fi
 	ps_ret=`$push_swap_path 1 -2147483649 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with arg : -2147483648 ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg above INT_MIN. ${reset}\n"
 		error=1
-	fi
-	ps_ret=`$push_swap_path 1 999999999999999999 2 2>&1`
-	if [ "$ps_ret" != "Error" ]
-	then
-		printf "${red}Your push_swap does not return Error with arg : 999999999999999999999 ${reset}\n"
-		error=1
-	fi
-	ps_ret=`$push_swap_path 1 " 12" 2 2>&1`
-	if [ "$ps_ret" != "Error" ]
-	then
-		printf "${red}Your push_swap does not return Error with arg : \" 12\" ${reset}\n"
-		error=1
-	fi
-	ps_ret=`$push_swap_path 1 "12ab" 2 2>&1`
-	if [ "$ps_ret" != "Error" ]
-	then
-		printf "${red}Your push_swap does not return Error with arg : \"12ab\" ${reset}\n"
-		error=1
-	fi
-	ps_ret=`$push_swap_path 1 "12 " 2 2>&1`
-	if [ "$ps_ret" != "Error" ]
-	then
-		printf "${red}Your push_swap does not return Error with arg : \"12 \" ${reset}\n"
-		error=1
+	else
+		printf "${green}Your push_swap return Error with arg above INT_MIN. ${reset}\n"
 	fi
 	ps_ret=`$push_swap_path 1 "ab" 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with arg : \"ab\" ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg type \"ab\". ${reset}\n"
 		error=1
+	else
+		printf "${green}Your push_swap return Error with arg type \"ab\". ${reset}\n"
 	fi
 	ps_ret=`$push_swap_path 1 " ab" 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with arg : \" ab\" ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg type \" ab\". ${reset}\n"
 		error=1
+	else
+		printf "${green}Your push_swap return Error with arg type \" ab\". ${reset}\n"
+	fi
+	ps_ret=`$push_swap_path 1 "ab12" 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		printf "${red}Your push_swap does not return Error with arg type \"ab12\". ${reset}\n"
+		error=1
+	else
+		printf "${green}Your push_swap return Error with arg type \"ab12\". ${reset}\n"
+	fi
+	ps_ret=`$push_swap_path 1 " 12" 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		printf "${yell}Your choosed to handle agr type \" 12\". It's up to you. ${reset}\n"
+	else
+		printf "${yell}Your choosed not to handle agr type \" 12\". It's up to you. ${reset}\n"
+	fi
+	ps_ret=`$push_swap_path 1 "12 " 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		printf "${red}Your choosed to handle arg type \"12 \". It's up to you. ${reset}\n"
+	else
+		printf "${yell}Your choosed not to handle agr type \"12 \". It's up to you. ${reset}\n"
+	fi
+	ps_ret=`$push_swap_path 1 "12ab" 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		printf "${red}Your choosed to handle arg type \"12ab\". It's up to you. ${reset}\n"
+	else
+		printf "${yell}Your choosed not to handle agr type \"12ab\". It's up to you. ${reset}\n"
+	fi
+	ps_ret=`$push_swap_path 1 " 12ab" 2 2>&1`
+	if [ "$ps_ret" != "Error" ]
+	then
+		printf "${red}Your choosed to handle arg type \" 12ab\". It's up to you. ${reset}\n"
+	else
+		printf "${yell}Your choosed not to handle agr type \" 12ab\". It's up to you. ${reset}\n"
 	fi
 	if [ $error == 0 ]
 	then
-		printf "${green}Your push_swap perfectly handle any Error case${reset}\n"
+		printf "${Purple}Error cases result : ✅${reset}\n"
+	else
+		printf "${Purple}Error cases result : ❌${reset}\n"
 	fi
 }
 
@@ -1397,6 +1431,9 @@ tester() {
 		if [ "$ret_checker" != "OK" ]
 		then
 			nb_errors=$(($nb_errors+1))
+			echo "Failed on test $i with $nb_of_values inputs : $ret_checker" >> debug.txt
+			echo $arg >> debug.txt
+			echo >> debug.txt
 		fi
 		average=$(($average+$current))
 		if [[ $current -gt $max ]]
@@ -1417,7 +1454,7 @@ tester() {
 	if [ $nb_errors = 0 ]; then
 		printf "${Purple}Number of errors : ${green}$nb_errors${reset}\n"
 	else
-		printf "${Purple}Number of errors : ${red}$nb_errors${reset}\n"
+		printf "${Purple}Number of errors : ${red}$nb_errors (see debug.txt file for details)${reset}\n"
 	fi
 }
 
@@ -1436,6 +1473,9 @@ tester_range() {
 		if [ "$ret_checker" != "OK" ]
 		then
 			nb_errors=$(($nb_errors+1))
+			echo "Failed on a sequencial test with list of $i inputs : $ret_checker" >> debug.txt
+			echo $arg >> debug.txt
+			echo >> debug.txt
 			printf "❌"
 		else
 			printf "✅"
@@ -1444,7 +1484,7 @@ tester_range() {
 	if [ $nb_errors = 0 ]; then
 		printf "\n${Purple}Number of errors : ${green}$nb_errors${reset}\n"
 	else
-		printf "\n${Purple}Number of errors : ${red}$nb_errors${reset}\n"
+		printf "\n${Purple}Number of errors : ${red}$nb_errors (open debug.txt file for details)${reset}\n"
 	fi
 }
 
@@ -1487,14 +1527,18 @@ mem_checker() {
 
 print_help() {
 	printf "\n${Blue}>>> Help menu <<<${reset}\n"
-	printf "${white}run $>bash push_swap_tester.sh [optional arg 1] [optional arg 2] :${reset}\n"
-	printf "${white}[optional arg 1]${reset} The number of values in stacks (-1 for Error checker).\n"
-	printf "${white}[optional arg 2]${reset} The number of tests to run.\n"
-	printf "${white}[No args]${reset} Every basical test is launched\n"
-	printf "${white}[Checker path]${reset} The default checker path is ./checker_linux. You can change the checker path by running :\n$>bash push_swap_tester [optional checker path] [optional arg 1] [optional arg 2]\n"
-	printf "${white}[Sequence mode]${reset} You run a sequence of numbers of args of your choice by running :\n$>bash push_swap_tester -seq [optional checker path] [mandatory sequence begin] [mandatory sequence end]\n\n"
+	printf "${white}run $>bash push_swap_tester.sh [optional - stack_size] [optional - number_of_tests] :${reset}\n"
+	printf "${white}[optional - stack_size]${reset} The number of values in stacks\n"
+	printf "${white}[optional - number_of_tests]${reset} The number of tests to run.\n"
+	printf "${white}[No args]${reset} Every basical test is launched.\n"
+	printf "${white}[Checker path]${reset} The default checker path is ./checker_linux. You can change the checker path by running :\n$>bash push_swap_tester [optional - checker_path] [optional - stack_size] [optional - number_of_tests]\n"
+	printf "${white}[range mode]${reset} You can run a range of tests of your choice by running :\n$>bash push_swap_tester --range [optional - checker_path] [mandatory - range_begin] [mandatory - range_end]\n"
+	printf "${white}[Memcheck mode]${reset} You can check for memory leaks and errors by running (does only work on linux with valgrind) :\n$>bash push_swap_tester --memory [optional - Checker_path] [mandatory - Size_of_stack]\n\n"
 }
 
+if [ -f "debug.txt" ]; then
+	rm debug.txt
+fi
 if [ $# -gt 4 ]; then
 	printf "${red}\nToo many args ! Help menu below : ${reset}\n" >&2
 	print_help
@@ -1561,7 +1605,7 @@ if [ -z "$3" ] && [[ $1 != "-seq" ]]; then
 fi
 re='^[0-9]+$'
 if ! [[ $1 =~ $re ]]; then
-	if [[ $1 = "-seq" ]]; then
+	if [[ $1 = "--range" ]]; then
 		if [[ $2 =~ $re ]] && [[ $3 =~ $re ]]; then
 				seq_begin=$2
 				seq_end=$3
