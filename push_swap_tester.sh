@@ -15,7 +15,7 @@ push_swap_path=../push_swap
 nb_tests_to_run=1
 nb_of_values=100
 seq_begin=1
-seq_end=1024
+seq_end=600
 
 testingerrors() {
 	error=0
