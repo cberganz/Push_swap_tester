@@ -23,61 +23,61 @@ testingerrors() {
 	ps_ret=`$push_swap_path 1 "" 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with args : 1 \"\" 2 ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg : \"\" ${reset}\n"
 		error=1
 	fi
 	ps_ret=`$push_swap_path 2 1 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with args : 2 1 2 ${reset}\n"
+		printf "${red}Your push_swap does not return Error with duplicates. ${reset}\n"
 		error=1
 	fi
 	ps_ret=`$push_swap_path 1 2147483648 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with args : 1 214683648 2 ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg : 214683648 ${reset}\n"
 		error=1
 	fi
 	ps_ret=`$push_swap_path 1 -2147483649 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with args : 1 -2147483648 2 ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg : -2147483648 ${reset}\n"
 		error=1
 	fi
 	ps_ret=`$push_swap_path 1 999999999999999999 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with args : 1 999999999999999999999 2 ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg : 999999999999999999999 ${reset}\n"
 		error=1
 	fi
 	ps_ret=`$push_swap_path 1 " 12" 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with args : 1 \" 12\" 2 ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg : \" 12\" ${reset}\n"
 		error=1
 	fi
 	ps_ret=`$push_swap_path 1 "12ab" 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with args : 1 \"12ab\" 2 ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg : \"12ab\" ${reset}\n"
 		error=1
 	fi
 	ps_ret=`$push_swap_path 1 "12 " 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with args : 1 \"12 \" 2 ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg : \"12 \" ${reset}\n"
 		error=1
 	fi
 	ps_ret=`$push_swap_path 1 "ab" 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with args : 1 \"ab\" 2 ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg : \"ab\" ${reset}\n"
 		error=1
 	fi
 	ps_ret=`$push_swap_path 1 " ab" 2 2>&1`
 	if [ "$ps_ret" != "Error" ]
 	then
-		printf "${red}Your push_swap does not return Error with args : 1 \" ab\" 2 ${reset}\n"
+		printf "${red}Your push_swap does not return Error with arg : \" ab\" ${reset}\n"
 		error=1
 	fi
 	if [ $error == 0 ]
@@ -151,9 +151,17 @@ testing3() {
 		nb_errors=$(($nb_errors+1))
 	fi
 	printf "\n${Purple}Test ${Cyan}3 ${Purple}numbers : ${reset}"
-	printf "${Cyan}6 ${Purple}tests with all possibilities${reset}\n"
-	printf "${Purple}Max : ${green}$max_ret_len${reset}\n"
-	printf "${Purple}Number of errors : ${green}$nb_errors${reset}\n"
+	printf "${Cyan}6 ${Purple}tests with all permutations.${reset}\n"
+	if [ $max_ret_len -gt 3 ]; then
+		printf "${Purple}Max : ${red}$max_ret_len${reset}\n"
+	else
+		printf "${Purple}Max : ${green}$max_ret_len${reset}\n"
+	fi
+	if [ $nb_errors = 0 ]; then
+		printf "${Purple}Number of errors : ${green}$nb_errors${reset}\n"
+	else
+		printf "${Purple}Number of errors : ${red}$nb_errors${reset}\n"
+	fi
 }
 
 testing5() {
@@ -1362,8 +1370,16 @@ testing5() {
 	fi
 	printf "\n${Purple}Test ${Cyan}5 ${Purple}numbers : ${reset}"
 	printf "${Cyan}120 ${Purple}tests with all permutations.${reset}\n"
-	printf "${Purple}Max : ${green}$max_ret_len${reset}\n"
-	printf "${Purple}Number of errors : ${green}$nb_errors${reset}\n"
+	if [ $max_ret_len -gt 12 ]; then
+		printf "${Purple}Max : ${red}$max_ret_len${reset}\n"
+	else
+		printf "${Purple}Max : ${green}$max_ret_len${reset}\n"
+	fi
+	if [ $nb_errors = 0 ]; then
+		printf "${Purple}Number of errors : ${green}$nb_errors${reset}\n"
+	else
+		printf "${Purple}Number of errors : ${red}$nb_errors${reset}\n"
+	fi
 }
 
 tester() {
@@ -1396,10 +1412,14 @@ tester() {
 	moyenne=$(($moyenne/$i))
 	printf "\n${Purple}Testing ${Cyan}$nb_of_values ${Purple}numbers : ${reset}"
 	printf "${Cyan}$nb_tests_to_run ${Purple}tests.${reset}\n"
-	printf "${Purple}Max : ${green}$max${reset}\n"
-	printf "${Purple}Min : ${green}$min${reset}\n"
-	printf "${Purple}Moyenne : ${green}$moyenne${reset}\n"
-	printf "${Purple}Number of errors : ${green}$nb_errors${reset}\n"
+	printf "${Purple}Max : ${Cyan}$max${reset}\n"
+	printf "${Purple}Min : ${Cyan}$min${reset}\n"
+	printf "${Purple}Moyenne : ${Cyan}$moyenne${reset}\n"
+	if [ $nb_errors = 0 ]; then
+		printf "${Purple}Number of errors : ${green}$nb_errors${reset}\n"
+	else
+		printf "${Purple}Number of errors : ${red}$nb_errors${reset}\n"
+	fi
 }
 
 tester_range() {
@@ -1408,7 +1428,7 @@ tester_range() {
 	min_val=1
 	max_val=50000
 	nb_errors=0
-	printf "\n${Purple}Testing all numbers between ${Cyan}$seq_begin${Purple} and ${Cyan}$seq_end${Purple} : ${reset}\n"
+	printf "\n${Purple}Testing all sizes of stack between ${Cyan}$seq_begin${Purple} and ${Cyan}$seq_end${Purple} : ${reset}\n"
 	printf "${Purple}Tests : ${reset}"
 	for i in `seq $seq_begin $seq_end`
 	do
@@ -1424,7 +1444,11 @@ tester_range() {
 			printf "✅"
 		fi
 	done
-	printf "\n${Purple}Number of errors : ${green}$nb_errors${reset}\n"
+	if [ $nb_errors = 0 ]; then
+		printf "${Purple}Number of errors : ${green}$nb_errors${reset}\n"
+	else
+		printf "${Purple}Number of errors : ${red}$nb_errors${reset}\n"
+	fi
 }
 
 launch_all() {
