@@ -1387,7 +1387,7 @@ tester() {
 	min=100000
 	min_val=1
 	max_val=50000
-	moyenne=0
+	average=0
 	nb_errors=0
 	for i in `seq 1 $nb_tests_to_run`
 	do
@@ -1399,7 +1399,7 @@ tester() {
 		then
 			nb_errors=$(($nb_errors+1))
 		fi
-		moyenne=$(($moyenne+$current))
+		average=$(($average+$current))
 		if [[ $current -gt $max ]]
 		then
 			max="$current"
@@ -1409,12 +1409,12 @@ tester() {
 			min="$current"
 		fi
 	done
-	moyenne=$(($moyenne/$i))
+	average=$(($average/$i))
 	printf "\n${Purple}Testing ${Cyan}$nb_of_values ${Purple}numbers : ${reset}"
 	printf "${Cyan}$nb_tests_to_run ${Purple}tests.${reset}\n"
 	printf "${Purple}Max : ${Cyan}$max${reset}\n"
 	printf "${Purple}Min : ${Cyan}$min${reset}\n"
-	printf "${Purple}Moyenne : ${Cyan}$moyenne${reset}\n"
+	printf "${Purple}average : ${Cyan}$average${reset}\n"
 	if [ $nb_errors = 0 ]; then
 		printf "${Purple}Number of errors : ${green}$nb_errors${reset}\n"
 	else
